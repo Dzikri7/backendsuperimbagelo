@@ -1,4 +1,4 @@
-module github.com/Dzikri7/superimbagelo
+module github.com/Dzikri7/backendsuperimbagelo
 
 go 1.18
 

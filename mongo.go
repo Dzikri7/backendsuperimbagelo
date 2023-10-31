@@ -20,6 +20,7 @@ func SetConnection(MONGOCONNSTRINGENV, dbname string) *mongo.Database {
 	return atdb.MongoConnect(DBmongoinfo)
 }
 
+//
 func GetAllBangunanLineString(mongoconn *mongo.Database, collection string) []GeoJson {
 	lokasi := atdb.GetAllDoc[[]GeoJson](mongoconn, collection)
 	return lokasi
