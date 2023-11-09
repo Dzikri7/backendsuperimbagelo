@@ -76,17 +76,17 @@ func GCFUpdateHandler(MONGOCONNSTRINGENV, dbname, collectionname string, r *http
 }
 
 // add encrypt password to database and tokenstring
-// func GCFCreateHandler(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
+func GCFCreateHandler(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 
-// 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
-// 	var datauser User
-// 	err := json.NewDecoder(r.Body).Decode(&datauser)
-// 	if err != nil {
-// 		return err.Error()
-// 	}
-// 	CreateNewUserRole(mconn, collectionname, datauser)
-// 	return GCFReturnStruct(datauser)
-// }
+ 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+ 	var datauser User
+ 	err := json.NewDecoder(r.Body).Decode(&datauser)
+ 	if err != nil {
+ 		return err.Error()
+ 	}
+ 	CreateNewUserRole(mconn, collectionname, datauser)
+ 	return GCFReturnStruct(datauser)
+}
 
 func GCFCreateHandlerTokenPaseto(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
