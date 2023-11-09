@@ -63,6 +63,11 @@ func GetNameAndPassowrd(mongoconn *mongo.Database, collection string) []User {
 	return user
 }
 
+func GetAllUser(mongoconn *mongo.Database, collection string) []User {
+	user := atdb.GetAllDoc[[]User](mongoconn, collection)
+	return user
+}
+
 func GetAllContent(mongoconn *mongo.Database, collection string) []Content {
 	content := atdb.GetAllDoc[[]Content](mongoconn, collection)
 	return content
@@ -135,6 +140,23 @@ func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata User
 func CreateNewProduct(mongoconn *mongo.Database, collection string, productdata Product) interface{} {
 	return atdb.InsertOneDoc(mongoconn, collection, productdata)
 }
+
+func InsertUserdata(MongoConn *mongo.Database, username, role, password string) (InsertedID interface{}) {
+	req := new(User)
+	req.Username = username
+	req.Password = password
+	req.Role = role
+	return InsertOneDoc(MongoConn, "user", req)
+}
+func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (insertedID interface{}) {
+	insertResult, err := db.Collection(collection).InsertOne(context.TODO(), doc)
+	if err != nil {
+		fmt.Printf("InsertOneDoc: %v\n", err)
+	}
+	return insertResult.InsertedID
+}
+
+// gis function
 
 // content
 func CreateNewContent(mongoconn *mongo.Database, collection string, contentdata Content) interface{} {
