@@ -11,11 +11,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// func GCFHandler(MONGOCONNSTRINGENV, dbname, collectionname string) string {
-// 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
-// 	datagedung := GetAllUser(mconn, collectionname)
-// 	return GCFReturnStruct(datagedung)
-// }
+func GCFHandler(MONGOCONNSTRINGENV, dbname, collectionname string) string {
+	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+ 	datagedung := GetAllUser(mconn, collectionname)
+ 	return GCFReturnStruct(datagedung)
+ }
 
 func GCFFindUserByID(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
