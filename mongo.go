@@ -299,3 +299,13 @@ func GetByCoordinate(mongoconn *mongo.Database, collection string, linestringdat
 	filter := bson.M{"geometry.coordinates": linestringdata.Geometry.Coordinates}
 	return atdb.GetOneDoc[GeoJsonLineString](mongoconn, collection, filter)
 }
+
+func DeleteLinestring(mongoconn *mongo.Database, collection string, linestringdata GeoJsonLineString) interface{} {
+	filter := bson.M{"geometry.coordinates": linestringdata.Geometry.Coordinates}
+	return atdb.DeleteOneDoc(mongoconn, collection, filter)
+}
+
+func UpdatedLinestring(mongoconn *mongo.Database, collection string, filter bson.M, linestringdata GeoJsonLineString) interface{} {
+	filter = bson.M{"geometry.coordinates": linestringdata.Geometry.Coordinates}
+	return atdb.ReplaceOneDoc(mongoconn, collection, filter, linestringdata)
+}
