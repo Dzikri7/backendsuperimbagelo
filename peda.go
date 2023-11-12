@@ -588,3 +588,33 @@ func GCFCreatePostLineString(MONGOCONNSTRINGENV, dbname, collection string, r *h
 	PostLinestring(mconn, collection, geojsonline)
 	return GCFReturnStruct(geojsonline)
 }
+
+func GCFDeleteLineString(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
+	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+	var dataline GeoJsonLineString
+	err := json.NewDecoder(r.Body).Decode(&dataline)
+	if err != nil {
+		return err.Error()
+	}
+
+	if err := DeleteLinestring(mconn, collectionname, dataline); err != nil {
+		return GCFReturnStruct(CreateResponse(true, "Success Delete LineString", dataline))
+	} else {
+		return GCFReturnStruct(CreateResponse(false, "Failed Delete LineString", dataline))
+	}
+}
+
+func GCFUpdateLinestring(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
+	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+	var dataline GeoJsonLineString
+	err := json.NewDecoder(r.Body).Decode(&dataline)
+	if err != nil {
+		return err.Error()
+	}
+
+	if err := UpdatedLinestring(mconn, collectionname, bson.M{"properties.coordinates": dataline.Geometry.Coordinates}, dataline); err != nil {
+		return GCFReturnStruct(CreateResponse(true, "Success Update LineString", dataline))
+	} else {
+		return GCFReturnStruct(CreateResponse(false, "Failed Update LineString", dataline))
+	}
+}
